@@ -10,15 +10,28 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
 # include <stddef.h>
-# include <stdio.h>
 # include <stdlib.h>
-# include <string.h>
 # include <unistd.h>
+
+# include <stdio.h>
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 42
+# endif
+
+# ifndef MAX_FD
+#  define MAX_FD 512
+# endif
+
+size_t		ft_strlen(const char *src);
+void		*ft_memset(void *src, int c, size_t n);
+void		*ft_memmove(void *dst, const void *src, size_t n);
+void		*ft_calloc(size_t bit, size_t n);
+char		*line_construct(char *src, char *buff);
 
 //get next line
 char		*get_next_line(int fd);
