@@ -25,7 +25,11 @@ CRT			=		@ar -rcs $(NAME)
 AR			=		@ar -rcs $(NAME) $(OBJ)
 AR_B		=		@ar -rcs $(NAME) $(OBJ_B)
 
-EXE			=		@cc -I $(INC_DIR) -o exe .main.c $(NAME) && ./exe && rm -f exe
+EXE			=		@cc $(FLAGS) -I $(INC_DIR) -o exe .main.c $(NAME) && ./exe && rm -f exe
+EXE_I		=		@cc $(FLAGS) -D BUFFER_SIZE=1 -I $(INC_DIR) -o exe .main.c $(NAME) && ./exe && rm -f exe
+EXE_X		=		@cc $(FLAGS) -D BUFFER_SIZE=10 -I $(INC_DIR) -o exe .main.c $(NAME) && ./exe && rm -f exe
+EXE_C		=		@cc $(FLAGS) -D BUFFER_SIZE=100 -I $(INC_DIR) -o exe .main.c $(NAME) && ./exe && rm -f exe
+EXE_M		=		@cc $(FLAGS) -D BUFFER_SIZE=1000 -I $(INC_DIR) -o exe .main.c $(NAME) && ./exe && rm -f exe
 
 #			-->|   Colors & Messages   |<--
 START		=		start
@@ -64,9 +68,9 @@ all: $(START) $(NAME) $(OBJ)
 	$(T_COMPILED)
 
 
-bonus: $(START_B) $(NAME) $(OBJ_B)
-	$(AR_B)
-	$(T_COMPILED)
+#bonus: $(START_B) $(NAME) $(OBJ_B)
+#	$(AR_B)
+#	$(T_COMPILED)
 
 clean:
 	$(M_C)
@@ -83,6 +87,10 @@ re: fclean all
 exe: re
 	$(T_EXECUTING)
 	$(EXE)
+	$(EXE_I)
+	$(EXE_X)
+	$(EXE_C)
+	$(EXE_M)
 	$(T_EXECUTED)
 
 #			-->|   File Dependencies   |<--

@@ -6,7 +6,7 @@
 /*   By: nleandro <nleandro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 10:27:40 by nleandro          #+#    #+#             */
-/*   Updated: 2024/12/25 01:22:40 by nleandro         ###   ########.fr       */
+/*   Updated: 2024/12/25 23:28:56 by nleandro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*get_next_line(int fd)
 	char		*res;
 	ssize_t		size;
 
-	if (fd < 0 || fd > MAX_FD - 1 || BUFFER_SIZE <= 0)
+	if (fd < 0 || fd > MAX_FD - 1 || BUFFER_SIZE <= 0 || read(fd, 0, 0))
 		return (0);
 	size = 1;
 	res = NULL;

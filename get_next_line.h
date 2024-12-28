@@ -17,8 +17,6 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-# include <stdio.h>
-
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 42
 # endif
@@ -26,6 +24,14 @@
 # ifndef MAX_FD
 #  define MAX_FD 512
 # endif
+
+typedef struct s_buffer
+{
+	int				fd;
+	char			buff_read[BUFFER_SIZE + 1];
+	char			*lines;
+	struct s_buffer	*next;
+}	t_buffer;
 
 size_t		ft_strlen(const char *src);
 void		*ft_memset(void *src, int c, size_t n);
