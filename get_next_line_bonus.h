@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#ifndef GET_NEXT_LINE_BONUS_H
+# define GET_NEXT_LINE_BONUS_H
 
 # include <stddef.h>
 # include <stdlib.h>
@@ -51,4 +51,4 @@ char			*buff_save(char *buff, char *lag);
 char			*get_next_line(int fd);
 
 //utils
-#endif //GET_NEXT_LINE_H
+#endif //GET_NEXT_LINE_BONUS_H

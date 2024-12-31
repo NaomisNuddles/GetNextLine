@@ -5,13 +5,14 @@
 
 int	main()
 {
-	static char	bla[BUFFER_SIZE + 1];
 	int k = open("tests/random.txt", O_RDONLY);
-	ssize_t a = read(k, bla, BUFFER_SIZE);
-	ssize_t b = read(k, bla, BUFFER_SIZE);
-	ssize_t c = read(k, bla, BUFFER_SIZE);
-	printf("to fd - %i\na:%ld\nb:%ld\nc:%ld\nstr:%s$\n", k, a, b, c, bla);
+
+	printf("fd: %d\n", k);
+	printf("line1:%s$\n", get_next_line(k));
 	close(k);
+	printf("line2:%s$\n", get_next_line(k));
+	k = open("tests/random.txt", O_RDONLY);
+	printf("line1:%s$\n", get_next_line(k));
 	/*int 	fd[11];
 	int 	i;
 	int		j;
@@ -20,31 +21,17 @@ int	main()
 	i = 0;
 	str = 0;
 	fd[0] = -1;
-	k = open("tests/empty.txt", O_RDONLY);
-	fd[1] = k;
-	k = open("tests/char.txt", O_RDONLY);
-	fd[2] = k;
-	k = open("tests/nlx5.txt", O_RDONLY);
-	fd[3] = k;
-	k = open("tests/line.txt", O_RDONLY);
-	fd[4] = k;
-	k = open("tests/line_nl.txt", O_RDONLY);
-	fd[5] = k;
-	k = open("tests/line_nlx2_line.txt", O_RDONLY);
-	fd[6] = k;
-	k = open("tests/line_nlx2_line_nl.txt", O_RDONLY);
-	fd[7] = k;
-	k = open("tests/sentences.txt", O_RDONLY);
-	fd[8] = k;
-	k = open("tests/random.txt", O_RDONLY);
-	fd[9] = k;
+	fd[1] = open("tests/empty.txt", O_RDONLY);
+	fd[2] = open("tests/char.txt", O_RDONLY);
+	fd[3] = open("tests/nlx5.txt", O_RDONLY);
+	fd[4] = open("tests/line.txt", O_RDONLY);
+	fd[5] = open("tests/line_nl.txt", O_RDONLY);
+	fd[6] = open("tests/line_nlx2_line.txt", O_RDONLY);
+	fd[7] = open("tests/line_nlx2_line_nl.txt", O_RDONLY);
+	fd[8] = open("tests/sentences.txt", O_RDONLY);
+	fd[9] = open("tests/random.txt", O_RDONLY);
 	fd[10] = -1;
 
-	printf("Testing fd % i ...\n\n", fd[9]);
-	printf("	line %.1i:%s$\n", 1, get_next_line(fd[9]));
-	l = close(fd[9]);
-	printf("	line %.1i:%s$\n", l, get_next_line(fd[9]));
-	printf("\033[1;34m\n\nBUFFR_SIZE %i:\n\n\033[0;39m", BUFFER_SIZE);
 	while (i <= 10)
 	{
 		j = 1;

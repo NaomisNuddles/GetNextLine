@@ -18,18 +18,16 @@ OBJ			=		$(addprefix $(OBJ_DIR), $(addsuffix .o, $(FILES)))
 SRC_B		=		$(addprefix $(SRC_DIR), $(addsuffix .c, $(FILES_B)))
 OBJ_B		=		$(addprefix $(OBJ_DIR), $(addsuffix .o, $(FILES_B)))
 
-FLAGS		=		-Wall -Wextra -Werror
-COMPILE		=		@cc $(FLAGS) -I $(INC_DIR) -c $< -o $@
+FLAGS		=		-Wall -Wextra -Werror -g -I
+BUFFER		=		-D BUFFER_SIZE=1
+COMPILE		=		@cc $(FLAGS) $(INC_DIR) -c $< -o $@
 RMV			=		@rm -rf $(OBJ_DIR)
 CRT			=		@ar -rcs $(NAME)
 AR			=		@ar -rcs $(NAME) $(OBJ)
 AR_B		=		@ar -rcs $(NAME) $(OBJ_B)
 
-EXE			=		@cc $(FLAGS) -I $(INC_DIR) -o exe .main.c $(NAME) && ./exe && rm -f exe
-EXE_I		=		@cc $(FLAGS) -D BUFFER_SIZE=1 -I $(INC_DIR) -o exe .main.c $(NAME) && ./exe && rm -f exe
-EXE_X		=		@cc $(FLAGS) -D BUFFER_SIZE=10 -I $(INC_DIR) -o exe .main.c $(NAME) && ./exe && rm -f exe
-EXE_C		=		@cc $(FLAGS) -D BUFFER_SIZE=100 -I $(INC_DIR) -o exe .main.c $(NAME) && ./exe && rm -f exe
-EXE_M		=		@cc $(FLAGS) -D BUFFER_SIZE=1000 -I $(INC_DIR) -o exe .main.c $(NAME) && ./exe && rm -f exe
+EXE			=		@cc $(FLAGS) $(INC_DIR) -o get_next_line.exe .main.c $(NAME) && ./get_next_line.exe
+RMV_E		=		@rm -f get_next_line.exe
 
 #			-->|   Colors & Messages   |<--
 START		=		start
@@ -68,9 +66,9 @@ all: $(START) $(NAME) $(OBJ)
 	$(T_COMPILED)
 
 
-#bonus: $(START_B) $(NAME) $(OBJ_B)
-#	$(AR_B)
-#	$(T_COMPILED)
+bonus: $(START_B) $(NAME) $(OBJ_B)
+	$(AR_B)
+	$(T_COMPILED)
 
 clean:
 	$(M_C)
@@ -80,6 +78,7 @@ clean:
 fclean:
 	$(M_F)
 	$(RMV) $(NAME)
+	$(RMV_E)
 	$(T_REMOVE_A)
 
 re: fclean all
@@ -87,10 +86,6 @@ re: fclean all
 exe: re
 	$(T_EXECUTING)
 	$(EXE)
-	$(EXE_I)
-	$(EXE_X)
-	$(EXE_C)
-	$(EXE_M)
 	$(T_EXECUTED)
 
 #			-->|   File Dependencies   |<--
