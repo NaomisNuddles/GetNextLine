@@ -17,8 +17,6 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-# include <stdio.h>
-
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 42
 # endif
@@ -39,16 +37,16 @@ typedef struct s_buffer
 	ssize_t			size;
 }	t_buffer;
 
+//get_next_line_utils.c
 size_t			ft_strlen(const char *src);
 void			*ft_memset(void *src, int c, size_t n);
 void			*ft_memmove(void *dst, const void *src, size_t n);
 void			*ft_calloc(size_t bit, size_t n);
 
-//get next line
+//get_next_line.c
 char			*line_pull(char *buff, size_t len);
 size_t			line_check(char *buff);
 char			*buff_save(char *buff, char *lag);
 char			*get_next_line(int fd);
 
-//utils
 #endif //GET_NEXT_LINE_BONUS_H
