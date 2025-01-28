@@ -6,7 +6,7 @@
 /*   By: nleandro <nleandro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 10:27:40 by nleandro          #+#    #+#             */
-/*   Updated: 2024/12/31 23:26:36 by nleandro         ###   ########.fr       */
+/*   Updated: 2025/01/07 11:06:01 by nleandro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,29 +56,29 @@ char	*buff_save(char *buff, char *lag)
 
 char	*get_next_line(int fd)
 {
-	static t_buffer	dat;
+	static t_buffer	data;
 	char			*res;
 
-	if (fd < 0 || fd > MAX_FD - 1 || BUFFER_SIZE <= 0)
+	if (fd < 0 || fd >= MAX_FD || BUFFER_SIZE <= 0)
 		return (0);
-	dat.size = read(fd, dat.lag, BUFFER_SIZE);
+	data.size = read(fd, data.lag, BUFFER_SIZE);
 	res = NULL;
-	while (dat.size > 0 || (!dat.size && dat.rem[fd].buff && *dat.rem[fd].buff))
+	while (data.size > 0 || (!data.size && data.buff[fd] && *data.buff[fd]))
 	{
-		if (dat.size)
-			dat.rem[fd].buff = buff_save(dat.rem[fd].buff, dat.lag);
-		if (!dat.rem[fd].buff && dat.size)
+		if (data.size)
+			data.buff[fd] = buff_save(data.buff[fd], data.lag);
+		if (!data.buff[fd] && data.size)
 			return (NULL);
-		if (line_check(dat.rem[fd].buff) || !dat.size)
+		if (line_check(data.buff[fd]) || !data.size)
 		{
-			res = line_pull(dat.rem[fd].buff, line_check(dat.rem[fd].buff));
+			res = line_pull(data.buff[fd], line_check(data.buff[fd]));
 			if (!res)
 				break ;
 			return (res);
 		}
-		dat.size = read(fd, dat.lag, BUFFER_SIZE);
+		data.size = read(fd, data.lag, BUFFER_SIZE);
 	}
-	free(dat.rem[fd].buff);
-	dat.rem[fd].buff = NULL;
+	free(data.buff[fd]);
+	data.buff[fd] = NULL;
 	return (NULL);
 }

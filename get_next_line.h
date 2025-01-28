@@ -16,6 +16,7 @@
 # include <stddef.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <fcntl.h>
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 42
@@ -25,14 +26,9 @@
 #  define MAX_FD 4096
 # endif
 
-typedef struct s_rem
-{
-	char		*buff;
-}	t_rem;
-
 typedef struct s_buffer
 {
-	t_rem			rem[MAX_FD];
+	char			*buff[MAX_FD];
 	char			lag[BUFFER_SIZE + 1];
 	ssize_t			size;
 }	t_buffer;
