@@ -78,7 +78,7 @@ clean:
 fclean:
 	$(M_F)
 	$(RMV) $(NAME)
-	$(RMV_E)
+	$(RMV_E)\\\\\\\
 	$(T_REMOVE_A)
 
 re: fclean all
